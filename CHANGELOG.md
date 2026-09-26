@@ -54,3 +54,6 @@ The first release.
 - Unit tests over the pcapng writer (byte-exact against hand-built blocks), the
   flow table, the IP parser, the entropy calculation, the stats accumulator and
   the argument parser.
+
+[1.0.1]: https://github.com/HeathHowren/procpcap/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/HeathHowren/procpcap/releases/tag/v1.0.0
