@@ -1,0 +1,20 @@
+#ifndef PROCPCAP_VERSION_H
+#define PROCPCAP_VERSION_H
+
+/* Generated from resources/Version.h.in by CMake configure_file. Do not edit. */
+
+#define PROCPCAP_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
+#define PROCPCAP_VERSION_MINOR @PROJECT_VERSION_MINOR@
+#define PROCPCAP_VERSION_PATCH @PROJECT_VERSION_PATCH@
+
+#define PROCPCAP_VERSION_STRING "@PROJECT_VERSION@"
+#define PROCPCAP_PRODUCT_NAME   "procpcap"
+#define PROCPCAP_COMPANY_NAME   "Game Reversal Club"
+#define PROCPCAP_COPYRIGHT      "Copyright (c) 2026 Heath Howren. MIT License."
+#define PROCPCAP_REPO_URL       "https://github.com/HeathHowren/procpcap"
+#define PROCPCAP_HOME_URL       "https://gamereversal.club/tools/procpcap/"
+
+/* Comma-separated form for the RC VERSIONINFO block. */
+#define PROCPCAP_RC_VERSION @PROJECT_VERSION_MAJOR@,@PROJECT_VERSION_MINOR@,@PROJECT_VERSION_PATCH@,0
+
+#endif /* PROCPCAP_VERSION_H */
