@@ -15,6 +15,7 @@ add_executable(procpcap_tests
     test_ippacket.cpp
     test_pcapng.cpp
     test_stats.cpp
+    test_targetselector.cpp
 )
 target_include_directories(procpcap_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(procpcap_tests PRIVATE procpcap_core procpcap_warnings Catch2::Catch2WithMain)

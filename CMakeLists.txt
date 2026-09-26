@@ -91,6 +91,7 @@ add_library(procpcap_core STATIC
     src/core/IpPacket.cpp
     src/core/PcapNg.cpp
     src/core/Stats.cpp
+    src/core/TargetSelector.cpp
 )
 target_compile_features(procpcap_core PUBLIC cxx_std_20)
 target_include_directories(procpcap_core PUBLIC

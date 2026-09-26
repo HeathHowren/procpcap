@@ -2,40 +2,48 @@
 #define PROCPCAP_PROCESSINFO_H
 
 #include "core/Cli.h"
+#include "core/TargetSelector.h"
 
 #include <cstdint>
 #include <string>
 #include <unordered_map>
-#include <unordered_set>
 
 namespace procpcap {
 
-// Resolves which process ids to capture and gives each a display name. Wraps the
-// Toolhelp snapshot and the process-image query, so the capture loop deals only
-// in pids and names.
+// Resolves which process ids to capture and gives each a display name. Feeds
+// Toolhelp snapshots to a TargetSelector, which holds the rules, so the capture
+// loop deals only in pids and names.
 class ProcessResolver {
 public:
+    ProcessResolver();
+
+    // The snapshot callback points back at this object, so it cannot be copied.
+    ProcessResolver(const ProcessResolver&) = delete;
+    ProcessResolver& operator=(const ProcessResolver&) = delete;
+
     // Build the initial target set from the command line: the explicit --pid
-    // values, plus every process whose image name contains --name (case
+    // values, plus every running process whose image name contains --name (case
     // insensitive), plus their descendants when --children is set.
     void resolveTargets(const CliOptions& opts);
 
-    // Whether a pid should be captured. With --children this also walks the
-    // parent chain, so a child spawned after startup is still matched.
+    // Whether a pid should be captured. Called once per flow event, not per
+    // packet. A process that starts after startup is a target if its image name
+    // contains --name or, with --children, if an ancestor is a target or has a
+    // matching name. A pid that did not match is checked again after a short
+    // time, since Windows reuses pids. See TargetSelector for the details.
     bool isTarget(uint32_t pid);
 
-    // The image name for a pid, e.g. "game.exe". Cached; falls back to
+    // The image name for a pid, e.g. "game.exe". Cached, and refreshed from
+    // every snapshot so a reused pid gets the new process's name. Falls back to
     // "pid <n>" if the process is gone or cannot be opened.
     std::string name(uint32_t pid);
 
-    // The count of pids in the initial target set (for the startup message).
-    size_t initialTargetCount() const { return targets_.size(); }
+    // The count of target pids. Called right after resolveTargets, for the
+    // startup message.
+    size_t initialTargetCount() const { return selector_.targetCount(); }
 
 private:
-    bool matchesName(const std::string& image) const;
-
-    CliOptions opts_;
-    std::unordered_set<uint32_t> targets_;
+    TargetSelector selector_;
     std::unordered_map<uint32_t, std::string> nameCache_;
 };
 

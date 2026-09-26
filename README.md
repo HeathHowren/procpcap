@@ -54,8 +54,9 @@ stats line is the last one printed, after Ctrl+C.*
 ## What it does
 
 - **Captures one process, or a set of them.** Choose by `--pid` (repeatable) or
-  by `--name <substr>`. Add `--children` to include processes spawned by the ones
-  you picked, so a launcher and its game are captured together.
+  by `--name <substr>`. `--name` also picks up matching processes that start
+  after the capture begins. Add `--children` to include processes spawned by the
+  ones you picked, so a launcher and its game are captured together.
 - **Attributes every packet to a process.** A WinDivert FLOW-layer handle,
   opened `SNIFF | RECV_ONLY`, reports which process owns each 5-tuple. A packet's
   owner is written into its pcapng comment as `pid <n> <name>`.
@@ -164,11 +165,12 @@ ctest --test-dir build -C Release --output-on-failure
 
 The first configure downloads WinDivert (the official release zip, pinned by
 SHA-256) and Catch2 (pinned by tag). The tests run the pcapng writer, the flow
-table, the IP parser, the entropy calculation, the stats accumulator and the
-argument parser, none of which need the driver or Administrator:
+table, the IP parser, the entropy calculation, the stats accumulator, the
+argument parser and the process selection rules, none of which need the driver
+or Administrator:
 
 ```
-100% tests passed, 0 tests failed out of 38
+100% tests passed, 0 tests failed out of 50
 ```
 
 `procpcap-synth`, built alongside, writes a synthetic pcapng and reads it back;
