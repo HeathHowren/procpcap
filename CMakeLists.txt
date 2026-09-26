@@ -2,7 +2,7 @@
 # extract behaviour.
 cmake_minimum_required(VERSION 3.28)
 
-project(procpcap VERSION 1.0.0 LANGUAGES C CXX)
+project(procpcap VERSION 1.0.1 LANGUAGES C CXX)
 
 if(NOT MSVC)
     message(FATAL_ERROR "procpcap uses WinDivert and the Win32 API, and builds with MSVC only.")

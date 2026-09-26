@@ -3,6 +3,27 @@
 All notable changes to procpcap are recorded here. This project follows
 [Semantic Versioning](https://semver.org/).
 
+## [1.0.1] - 2026-09-26
+
+### Fixed
+
+- **`--name` now captures processes that start after launch.** If nothing
+  matched at startup, procpcap said it was waiting for a match, but it never
+  checked the names of processes that started later. It now checks each new
+  process when it opens its first connection. With `--children`, a process is
+  also captured when an ancestor's name matches, even if that ancestor started
+  later. New unit tests cover these rules with a fake process table.
+- **Fewer process lookups.** A check takes one process snapshot and records an
+  answer for every process in it. A pid that did not match is checked again
+  after 250 ms, so a matching process that reuses the pid is still found.
+  Before, `--children` took a snapshot for each step up the parent chain on
+  every connection event from a process it was not capturing.
+- **Names after pid reuse.** A newly matched process is labeled with its own
+  name, even if its pid belonged to another process earlier in the run.
+- **README fixes.** The sample output is a real Firefox capture, not
+  `procpcap-synth` output. The README now says that a packet still unmatched
+  after 100 ms is dropped, and the YouTube link is updated.
+
 ## [1.0.0] - 2026-09-25
 
 The first release.

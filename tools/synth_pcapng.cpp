@@ -1,11 +1,13 @@
 // synth_pcapng: write a small, deterministic pcapng from a hand-built packet
 // list, then read it back and print a summary. It exercises the pcapng writer
-// with no driver and no Administrator, which is how the file shown in the README
-// is produced. It is a development aid and is not shipped in the release zip.
+// with no driver and no Administrator. It is a development aid and is not
+// shipped in the release zip.
 
 #include "core/IpPacket.h"
 #include "core/PcapNg.h"
 #include "PcapNgReader.h"
+
+#include "Version.h"
 
 #include <cstdint>
 #include <cstdio>
@@ -79,7 +81,7 @@ int main(int argc, char** argv) {
     packets.push_back(
         {ipv4(kProtoTcp, local, web, 52000, 443, {0x9F, 0x3C, 0xA1, 0x77, 0xE2, 0x08, 0x55, 0xBD}), 1'500'000, true, "pid 4242 game.exe"});
 
-    PcapNgWriter writer("procpcap 1.0.0 (synthetic)");
+    PcapNgWriter writer("procpcap " PROCPCAP_VERSION_STRING " (synthetic)");
     std::vector<uint8_t> file = writer.fileHeader();
     for (const auto& s : packets) {
         auto block = writer.packetBlock(s.bytes.data(), s.bytes.size(), s.tsMicros, s.comment);

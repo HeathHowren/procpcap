@@ -21,7 +21,7 @@ It reads traffic; it does not modify, block or inject it, and it is for your own
 machine and your own traffic.
 
 procpcap is written by Heath Howren
-([Cyborg Elf](https://www.youtube.com/c/cyborgelf)) of
+([Cyborg Elf](https://www.youtube.com/cyborgelf)) of
 [Game Reversal Club](https://gamereversal.club). It is the first step in the
 netcode chapters of
 [*The Game Hacker's Handbook*](https://gamereversal.club/books/game-hackers-handbook/):
@@ -88,6 +88,10 @@ held for up to 100 ms and written when the match comes in, so it can land after
 a later packet. In the Firefox capture above, the largest step back was 25 ms.
 Every packet keeps its own timestamp. Run Wireshark's `reordercap` on the file
 if a tool needs it sorted.
+
+A packet whose connection is still not matched to a selected process after
+100 ms is dropped. It is not written or counted in the stats, which is how other
+processes' traffic is left out.
 
 ## Download
 
@@ -173,8 +177,8 @@ or Administrator:
 100% tests passed, 0 tests failed out of 50
 ```
 
-`procpcap-synth`, built alongside, writes a synthetic pcapng and reads it back;
-it is how the output block above was produced without a capture.
+`procpcap-synth`, built alongside, writes a small synthetic pcapng and reads it
+back. It checks the writer without the driver or Administrator.
 
 To produce the release zip:
 
