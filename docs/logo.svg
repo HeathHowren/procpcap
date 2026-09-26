@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#0f2235"/>
+  <rect width="64" height="4" fill="#c0392b"/>
+  <!-- A stream of packets. The orange one is the process we single out. -->
+  <rect x="6" y="15" width="10" height="10" rx="2" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <rect x="19.5" y="13.5" width="13" height="13" rx="2.5" fill="#e67e22"/>
+  <rect x="36" y="15" width="10" height="10" rx="2" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <rect x="49" y="15" width="10" height="10" rx="2" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <!-- Funnel down to the capture: only the singled-out packet is kept. -->
+  <path d="M26 30 L26 38 L20 44 L44 44 L38 38 L38 30" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/>
+  <!-- The capture file. -->
+  <rect x="20" y="48" width="24" height="11" rx="2" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <rect x="24.5" y="52.5" width="15" height="2.5" rx="1.25" fill="#e67e22"/>
+</svg>
